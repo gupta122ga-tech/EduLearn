@@ -1,0 +1,192 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    /* EduLearn Brand Theme (HSL values) */
+    --background: 210 20% 98%; /* #F9FAFB */
+    --foreground: 0 0% 10%; /* #1A1A1A */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 265 100% 47%; /* #6200EE */
+    --primary-foreground: 0 0% 100%; /* white */
+
+    --secondary: 174 97% 43%; /* #03DAC6 */
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 210 16% 96%;
+    --muted-foreground: 0 0% 33%; /* #555555 */
+
+    --accent: 174 97% 43%; /* use secondary as accent */
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 88%; /* #E0E0E0 */
+    --input: 0 0% 88%;
+    --ring: 265 100% 47%;
+
+    --radius: 0.75rem; /* 12px for softer cards */
+
+    /* Sidebar (unused by default but kept consistent) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 26%;
+    --sidebar-primary: 265 100% 47%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 16% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 88%;
+    --sidebar-ring: 265 100% 47%;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 0 0% 100%;
+
+    --card: 222 47% 7%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 222 47% 7%;
+    --popover-foreground: 0 0% 100%;
+
+    --primary: 265 100% 60%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 174 97% 45%;
+    --secondary-foreground: 0 0% 0%;
+
+    --muted: 220 14% 18%;
+    --muted-foreground: 220 13% 70%;
+
+    --accent: 220 14% 18%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 22%;
+    --input: 220 14% 22%;
+    --ring: 265 100% 60%;
+
+    --sidebar-background: 222 47% 7%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 265 100% 60%;
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 222 47% 10%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 47% 10%;
+    --sidebar-ring: 265 100% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Utilities */
+@layer utilities {
+  .container-max {
+    @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .bg-gradient-brand {
+    background-image: linear-gradient(135deg, #6200EE, #03DAC6);
+  }
+
+  .underline-animation {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 200ms ease;
+  }
+  .underline-animation:hover,
+  .underline-animation:focus-visible {
+    background-size: 100% 2px;
+  }
+
+  .elevate {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.08);
+  }
+  .elevate-lg {
+    box-shadow: 0px 12px 28px rgba(0, 0, 0, 0.12);
+  }
+
+  .ripple {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .ripple:after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--ripple-x,50%) var(--ripple-y,50%), rgba(255,255,255,0.35), transparent 40%);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 450ms ease, transform 450ms ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ripple:active:after {
+    opacity: 1;
+    transform: scale(1.05);
+    transition: none;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scaleUp {
+    from { transform: scale(1); }
+    to { transform: scale(1.03); }
+  }
+  @keyframes liftUp {
+    from { transform: translateY(0); }
+    to { transform: translateY(-4px); }
+  }
+  @keyframes fadeTransition {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+  }
+  .animate-fadeIn { animation: fadeIn 600ms ease both; }
+  .animate-slideInUp { animation: slideInUp 700ms ease both; }
+  .animate-fadeTransition { animation: fadeTransition 800ms ease both; }
+
+  /* Scroll reveal utility */
+  .sr-hidden { opacity: 0; transform: translateY(18px) scale(.98); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); will-change: transform, opacity; }
+  .sr-show { opacity: 1; transform: translateY(0) scale(1); }
+}
